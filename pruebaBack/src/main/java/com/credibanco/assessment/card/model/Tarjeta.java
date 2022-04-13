@@ -31,7 +31,7 @@ public class Tarjeta implements Serializable {
 	private Long tarjetaId;
 	
 	@Column(name = "TARJETA_NUMERO_VALIDACION", nullable = false, length = 1000)
-	private String tarjetaNombre;
+	private String tarjetaNumeroValidacion;
 	
 	@Column(name = "TARJETA_PAN", nullable = false, length = 1000)
 	private String tarjetaPan;
