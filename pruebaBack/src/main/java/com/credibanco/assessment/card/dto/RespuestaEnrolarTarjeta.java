@@ -5,11 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RespuestaCrearTarjeta extends RespuestaGenerica {
+public class RespuestaEnrolarTarjeta extends RespuestaGenerica {
 
-	private String numeroValidacion;
-	
 	private String pan;
-	
-	private Long id;
 }
