@@ -1,5 +1,8 @@
 package com.credibanco.assessment.card.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,9 +10,11 @@ import com.credibanco.assessment.card.dto.PeticionCrearTarjeta;
 import com.credibanco.assessment.card.dto.PeticionEliminarTarjeta;
 import com.credibanco.assessment.card.dto.PeticionEnrolarTarjeta;
 import com.credibanco.assessment.card.dto.RespuestaConsultarTarjeta;
+import com.credibanco.assessment.card.dto.RespuestaConsultarTarjetas;
 import com.credibanco.assessment.card.dto.RespuestaCrearTarjeta;
 import com.credibanco.assessment.card.dto.RespuestaEliminarTarjeta;
 import com.credibanco.assessment.card.dto.RespuestaEnrolarTarjeta;
+import com.credibanco.assessment.card.dto.TarjetaDto;
 import com.credibanco.assessment.card.model.Tarjeta;
 import com.credibanco.assessment.card.model.Titular;
 import com.credibanco.assessment.card.repository.ITarjetaRepository;
@@ -93,11 +98,14 @@ public class TarjetaService implements ITarjetaService {
 				respuestaConsultarTarjeta.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_UNO);
 				respuestaConsultarTarjeta.setMensaje(Constantes.RESPUESTA_FALLO);
 			}else {
-				respuestaConsultarTarjeta.setPan(Utilidades.getInstance().enmascararTexto(tarjeta.getTarjetaPan(), Constantes.INICIO_CODIGO_PAN, Constantes.FINAL_CODIGO_PAN, Constantes.CARACTER_ENMASCARAR));
-				respuestaConsultarTarjeta.setTitular(tarjeta.getTarjetaTitular().getTitularNombre());
-				respuestaConsultarTarjeta.setCedula(tarjeta.getTarjetaTitular().getTitularCedula());
-				respuestaConsultarTarjeta.setTelefono(tarjeta.getTarjetaTitular().getTitularTelefono());
-				respuestaConsultarTarjeta.setEstado(tarjeta.getTarjetaEstado());
+				TarjetaDto tarjetaDto = new TarjetaDto();
+				
+				tarjetaDto.setPan(Utilidades.getInstance().enmascararTexto(tarjeta.getTarjetaPan(), Constantes.INICIO_CODIGO_PAN, Constantes.FINAL_CODIGO_PAN, Constantes.CARACTER_ENMASCARAR));
+				tarjetaDto.setTitular(tarjeta.getTarjetaTitular().getTitularNombre());
+				tarjetaDto.setCedula(tarjeta.getTarjetaTitular().getTitularCedula());
+				tarjetaDto.setTelefono(tarjeta.getTarjetaTitular().getTitularTelefono());
+				tarjetaDto.setEstado(tarjeta.getTarjetaEstado());
+				respuestaConsultarTarjeta.setTarjetaDto(tarjetaDto);
 				respuestaConsultarTarjeta.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_CERO);
 				respuestaConsultarTarjeta.setMensaje(Constantes.RESPUESTA_EXITOSA);
 			}
@@ -137,5 +145,35 @@ public class TarjetaService implements ITarjetaService {
 			respuestaEliminarTarjeta.setMensaje(Constantes.RESPUESTA_FALLO);
 		}
 		return respuestaEliminarTarjeta;
+	}
+
+	@Override
+	public RespuestaConsultarTarjetas consultarTarjetas() {
+		RespuestaConsultarTarjetas respuestaConsultarTarjetas = new RespuestaConsultarTarjetas();
+		try {
+			List<Tarjeta> listTarjetas = tarjetaRepository.findAll();
+			if(null == listTarjetas || listTarjetas.isEmpty()) {
+				respuestaConsultarTarjetas.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_UNO);
+				respuestaConsultarTarjetas.setMensaje(Constantes.SIN_REGISTROS);
+			}else {
+				List<TarjetaDto> listTarjetasDto = new ArrayList<>();
+				listTarjetas.forEach(tarjeta -> {
+					TarjetaDto tarjetaDto = new TarjetaDto();
+					tarjetaDto.setPan(Utilidades.getInstance().enmascararTexto(tarjeta.getTarjetaPan(), Constantes.INICIO_CODIGO_PAN, Constantes.FINAL_CODIGO_PAN, Constantes.CARACTER_ENMASCARAR));
+					tarjetaDto.setTitular(tarjeta.getTarjetaTitular().getTitularNombre());
+					tarjetaDto.setCedula(tarjeta.getTarjetaTitular().getTitularCedula());
+					tarjetaDto.setTelefono(tarjeta.getTarjetaTitular().getTitularTelefono());
+					tarjetaDto.setEstado(tarjeta.getTarjetaEstado());
+					listTarjetasDto.add(tarjetaDto);
+				});
+				respuestaConsultarTarjetas.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_CERO);
+				respuestaConsultarTarjetas.setMensaje(Constantes.RESPUESTA_EXITOSA);
+				respuestaConsultarTarjetas.setListTarjetasDto(listTarjetasDto);
+			}
+		}catch(Exception e) {
+			respuestaConsultarTarjetas.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_UNO);
+			respuestaConsultarTarjetas.setMensaje(Constantes.RESPUESTA_FALLO);
+		}
+		return respuestaConsultarTarjetas;
 	}
 }

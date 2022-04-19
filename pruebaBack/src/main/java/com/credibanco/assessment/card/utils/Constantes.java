@@ -37,4 +37,6 @@ public class Constantes {
 	public static final String ELIMINACION_OK = "Se ha eliminado la tarjeta";
 	
 	public static final String VALIDACION_DATOS = "Por favor revisar los datos ingresados";
+	
+	public static final String SIN_REGISTROS = "No se han encontrado registros";
 }

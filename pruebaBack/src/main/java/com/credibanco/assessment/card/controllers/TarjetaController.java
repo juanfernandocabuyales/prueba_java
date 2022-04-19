@@ -18,6 +18,7 @@ import com.credibanco.assessment.card.dto.PeticionCrearTarjeta;
 import com.credibanco.assessment.card.dto.PeticionEliminarTarjeta;
 import com.credibanco.assessment.card.dto.PeticionEnrolarTarjeta;
 import com.credibanco.assessment.card.dto.RespuestaConsultarTarjeta;
+import com.credibanco.assessment.card.dto.RespuestaConsultarTarjetas;
 import com.credibanco.assessment.card.dto.RespuestaCrearTarjeta;
 import com.credibanco.assessment.card.dto.RespuestaEliminarTarjeta;
 import com.credibanco.assessment.card.dto.RespuestaEnrolarTarjeta;
@@ -53,6 +54,13 @@ public class TarjetaController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
         return ResponseEntity.ok().body(respuestaConsultarTarjeta);
+    }
+	
+	@CrossOrigin(origins = "*", methods = {RequestMethod.GET})
+    @GetMapping(value = "/consultarTarjetas")
+    public ResponseEntity<Object> consultarTarjetas() {
+		RespuestaConsultarTarjetas respuestaConsultarTarjetas = tarjetaService.consultarTarjetas();
+		return ResponseEntity.ok().body(respuestaConsultarTarjetas);
     }
 	
 	@CrossOrigin(origins = "*", methods = {RequestMethod.DELETE})
