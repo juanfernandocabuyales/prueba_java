@@ -6,12 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.credibanco.assessment.card.dto.PeticionCrearTarjeta;
@@ -28,12 +28,8 @@ import com.credibanco.assessment.card.utils.Constantes;
 @RequestMapping("/api/tarjeta")
 public class TarjetaController {
 
-	private ITarjetaService tarjetaService;
-	
 	@Autowired
-	public TarjetaController(ITarjetaService tarjetaService) {
-		this.tarjetaService = tarjetaService;
-	}
+	private ITarjetaService tarjetaService;
 	
 	@CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @PostMapping(value = "/crearTarjeta")
@@ -51,7 +47,7 @@ public class TarjetaController {
 	
 	@CrossOrigin(origins = "*", methods = {RequestMethod.GET})
     @GetMapping(value = "/consultarTarjeta/{id}")
-    public ResponseEntity<Object> consultarTarjeta(@RequestParam Long id) {
+    public ResponseEntity<Object> consultarTarjeta(@PathVariable Long id) {
 		RespuestaConsultarTarjeta respuestaConsultarTarjeta = tarjetaService.consultarTarjeta(id);
 		if(respuestaConsultarTarjeta.getCodigoRespuesta().equalsIgnoreCase(Constantes.CODIGO_RESPUESTA_UNO)) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

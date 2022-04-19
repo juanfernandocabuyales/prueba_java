@@ -21,15 +21,11 @@ import com.credibanco.assessment.card.utils.Utilidades;
 @Service
 public class TarjetaService implements ITarjetaService {
 
+	@Autowired
 	private ITarjetaRepository tarjetaRepository;
 	
+	@Autowired
 	private ITitularRepository titularRepository;
-	
-	@Autowired	
-	public TarjetaService(ITarjetaRepository tarjetaRepository,ITitularRepository titularRepository) {
-		this.tarjetaRepository = tarjetaRepository;
-		this.titularRepository = titularRepository;
-	}
 
 	@Override
 	public RespuestaCrearTarjeta crearTarjeta(PeticionCrearTarjeta peticionCrearTarjeta) {
@@ -102,6 +98,8 @@ public class TarjetaService implements ITarjetaService {
 				respuestaConsultarTarjeta.setCedula(tarjeta.getTarjetaTitular().getTitularCedula());
 				respuestaConsultarTarjeta.setTelefono(tarjeta.getTarjetaTitular().getTitularTelefono());
 				respuestaConsultarTarjeta.setEstado(tarjeta.getTarjetaEstado());
+				respuestaConsultarTarjeta.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_CERO);
+				respuestaConsultarTarjeta.setMensaje(Constantes.RESPUESTA_EXITOSA);
 			}
 		}catch(Exception e) {
 			respuestaConsultarTarjeta.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_UNO);
@@ -128,6 +126,7 @@ public class TarjetaService implements ITarjetaService {
 						respuestaEliminarTarjeta.setMensaje(Constantes.VALIDACION_DATOS);
 					}else {
 						tarjetaRepository.delete(tarjeta);
+						titularRepository.delete(tarjeta.getTarjetaTitular());
 						respuestaEliminarTarjeta.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_CERO);
 						respuestaEliminarTarjeta.setMensaje(Constantes.ELIMINACION_OK);
 					}
