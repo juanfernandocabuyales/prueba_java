@@ -4,13 +4,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { PrimengModule } from './modulos/primeng.module';
+
+import { TarjetasComponent } from './pages/tarjetas/tarjetas.component';
+import { TransaccionesComponent } from './pages/transacciones/transacciones.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TarjetasComponent,
+    TransaccionesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PrimengModule
   ],
   providers: [],
   bootstrap: [AppComponent]
