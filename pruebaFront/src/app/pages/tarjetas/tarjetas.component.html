@@ -1,70 +1,22 @@
-<p-table #dt [value]="tarjetasList" [(selection)]="tarjetasSeleccionadas" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros"
-    [filterDelay]="0" [globalFilterFields]="['pan','titular','cedula','telefono','estado']">
-    <ng-template pTemplate="caption">
-        <div class="table-header">
-            Listado de Tarjetas
-            <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar ... " />
-                    </span>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width: 3rem"></th>
-            <th pSortableColumn="pan">Pan
-                <p-sortIcon field="pan"></p-sortIcon>
-            </th>
-            <th pSortableColumn="titular">Titular
-                <p-sortIcon field="titular"></p-sortIcon>
-            </th>
-            <th pSortableColumn="cedula">Cedula
-                <p-sortIcon field="cedula"></p-sortIcon>
-            </th>
-            <th pSortableColumn="telefono">Telefono
-                <p-sortIcon field="telefono"></p-sortIcon>
-            </th>
-            <th pSortableColumn="estado">Estado
-                <p-sortIcon field="estado"></p-sortIcon>
-            </th>
-            <th style="width: 8rem"></th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-tarjeta>
-        <tr class="p-selectable-row">
-            <td>
-                <p-tableCheckbox [value]="tarjeta"></p-tableCheckbox>
-            </td>
-            <td>
-                <span class="p-column-title">Pan</span> {{tarjeta.pan}}
-            </td>
-            <td>
-                <span class="p-column-title">Titular</span>
-                <span class="image-text">{{tarjeta.titular}}</span>
-            </td>
-            <td>
-                <span class="p-column-title">Cedula</span>
-                <span class="image-text">{{tarjeta.cedula}}</span>
-            </td>
-
-            <td>
-                <span class="p-column-title">Telefono</span>
-                <span class="image-text">{{tarjeta.telefono}}</span>
-            </td>
-
-            <td>
-                <span class="p-column-title">Estado</span>
-                <span class="image-text">{{tarjeta.estado}}</span>
-            </td>
-            
-            <td style="text-align: center">
-                <button pButton type="button" class="p-button-secondary" icon="pi pi-cog"></button>
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="emptymessage">
-        <tr>
-            <td colspan="8">No se encontraron registros</td>
-        </tr>
-    </ng-template>
-</p-table>
+<div class="container mt-5">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">pan</th>
+            <th scope="col">titular</th>
+            <th scope="col">cedula</th>
+            <th scope="col">telefono</th>
+            <th scope="col">estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tarjeta of tarjetasList">
+            <td>{{tarjeta.pan}}</td>
+            <td>{{tarjeta.titular}}</td>
+            <td>{{tarjeta.cedula}}</td>
+            <td>{{tarjeta.telefono}}</td>
+            <td>{{tarjeta.estado}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
