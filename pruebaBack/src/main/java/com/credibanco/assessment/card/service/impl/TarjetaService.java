@@ -1,4 +1,4 @@
-package com.credibanco.assessment.card.service;
+package com.credibanco.assessment.card.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import com.credibanco.assessment.card.model.Tarjeta;
 import com.credibanco.assessment.card.model.Titular;
 import com.credibanco.assessment.card.repository.ITarjetaRepository;
 import com.credibanco.assessment.card.repository.ITitularRepository;
-import com.credibanco.assessment.card.service.impl.ITarjetaService;
+import com.credibanco.assessment.card.service.ITarjetaService;
 import com.credibanco.assessment.card.utils.Constantes;
 import com.credibanco.assessment.card.utils.Utilidades;
 

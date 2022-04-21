@@ -22,7 +22,7 @@ import com.credibanco.assessment.card.dto.RespuestaConsultarTarjetas;
 import com.credibanco.assessment.card.dto.RespuestaCrearTarjeta;
 import com.credibanco.assessment.card.dto.RespuestaEliminarTarjeta;
 import com.credibanco.assessment.card.dto.RespuestaEnrolarTarjeta;
-import com.credibanco.assessment.card.service.impl.ITarjetaService;
+import com.credibanco.assessment.card.service.ITarjetaService;
 import com.credibanco.assessment.card.utils.Constantes;
 
 @RestController

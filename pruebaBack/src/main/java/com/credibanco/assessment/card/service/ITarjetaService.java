@@ -1,4 +1,4 @@
-package com.credibanco.assessment.card.service.impl;
+package com.credibanco.assessment.card.service;
 
 import com.credibanco.assessment.card.dto.PeticionCrearTarjeta;
 import com.credibanco.assessment.card.dto.PeticionEliminarTarjeta;

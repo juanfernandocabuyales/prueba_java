@@ -1,5 +1,10 @@
 package com.credibanco.assessment.card.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
 public class Utilidades {
 
 	private static Utilidades utilidades;
@@ -33,8 +38,25 @@ public class Utilidades {
 		return textoEnmascarado.toString();
 	}
 	
+	public Long diferenciaMinutos(Date fechaInicial, Date fechaFinal ) {
+		Long diferencia= fechaFinal.getTime() - fechaInicial.getTime() ;
+		return TimeUnit.MILLISECONDS.toMinutes(diferencia);
+	}
+	
 	public static void main(String[] args) {
-		String resultado = Utilidades.getInstance().enmascararTexto("12345685233456", 6, 4, "*");
-		System.out.println("resultado: " + resultado);
+		/*String resultado = Utilidades.getInstance().enmascararTexto("12345685233456", 6, 4, "*");
+		System.out.println("resultado: " + resultado);*/
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
+			
+			Date fechaUno = sdf.parse("2022-04-21 07:17");
+			Date fechaDos = sdf.parse("2022-04-21 07:20");
+			long diferencia= fechaDos.getTime() - fechaUno.getTime() ;
+			long minutos = TimeUnit.MILLISECONDS.toMinutes(diferencia); 
+			
+			System.out.println("diferencia es: " + minutos);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package com.credibanco.assessment.card.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -42,4 +45,12 @@ public class Transaccion implements Serializable {
 	
 	@Column(name = "TRANSACCION_DIRECCION", nullable = false, length = 1000)
 	private String transaccionDireccion;
+	
+	@Column(name = "TRANSACCION_ESTADO", nullable = false, length = 1000)
+	private String transaccionEstado;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "TRANSACCION_FECHA", length = 50)
+	private Date transaccionFecha;
+
 }
