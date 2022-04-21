@@ -1,1 +1,32 @@
-<p>transacciones works!</p>
+<div class="text-center mt-5">
+    <h3> Listado de Transacciones</h3>
+  </div>
+  
+  <div class="container mt-5">
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Tarjeta</th>
+              <th scope="col">Numero Referencia</th>
+              <th scope="col">Total Compra</th>
+              <th scope="col">Direccion</th>
+              <th scope="col">Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaccion of transaccionList">
+              <td>{{transaccion.idTarjeta}}</td>
+              <td>{{transaccion.numeroReferencia}}</td>
+              <td>{{transaccion.totalCompra}}</td>
+              <td>{{transaccion.direccionCompra === null ? 'No registra' : transaccion.direccionCompra}}</td>
+              <td>{{transaccion.fechaTransaccion}}</td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <div class="text-center mt-5">
+          <button type="button" class="btn btn-primary btn-lg" (click)="navegarPagina()">Tarjetas</button>
+        </div>
+        
+  </div>
+  

@@ -14,6 +14,15 @@ export class RespuestaConsultarTarjetas extends RespuestaGenerica{
     }
 }
 
+export class RespuestaConsultarTransacciones extends RespuestaGenerica {
+    transaccionesList : Transaccion[];
+
+    constructor(transaccionesList: Transaccion[]){
+        super();
+        this.transaccionesList = transaccionesList;
+    }
+}
+
 
 
 
@@ -30,5 +39,22 @@ export class Tarjeta {
         this.cedula = cedula;
         this.telefono = telefono;
         this.estado = estado;
+    }
+}
+
+export class Transaccion{
+    idTarjeta : number;
+    numeroReferencia : string;
+    totalCompra : number;
+    direccionCompra : string;
+    fechaTransaccion : string;
+
+    constructor(idTarjeta : number, numeroReferencia : string, totalCompra : number, direccionCompra : string,
+                fechaTransaccion : string){
+        this.idTarjeta = idTarjeta; 
+        this.numeroReferencia = numeroReferencia; 
+        this.totalCompra = totalCompra; 
+        this.direccionCompra = direccionCompra; 
+        this.fechaTransaccion = fechaTransaccion;
     }
 }

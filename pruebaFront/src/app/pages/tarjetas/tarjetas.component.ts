@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router} from '@angular/router';
+
 import { RespuestaConsultarTarjetas, Tarjeta } from '../../models/clases';
 import { TarjetaService } from '../../services/tarjeta.service';
 import { Constantes } from '../../models/constantes';
@@ -13,11 +15,7 @@ export class TarjetasComponent implements OnInit {
 
   tarjetasList: Tarjeta[] = [];
 
-  tarjetasSeleccionadas: Tarjeta[] = [];
-
-  loading: boolean = true;
-
-  constructor(private tarjetaService: TarjetaService) { 
+  constructor(private tarjetaService: TarjetaService,private router: Router) { 
   }
 
   ngOnInit(): void {
@@ -26,7 +24,6 @@ export class TarjetasComponent implements OnInit {
 
   cargarInformacion(): void {
     this.tarjetaService.consultarTarjetas().subscribe(( resp:RespuestaConsultarTarjetas ) => {
-      this.loading = false;
       if(resp.codigoRespuesta === Constantes.CODIGO_RESPUESTA_CERO ){
         this.tarjetasList = resp.listTarjetasDto;
       }else{
@@ -39,6 +36,10 @@ export class TarjetasComponent implements OnInit {
         'error'
       );
     });
+  }
+
+  navegarPagina(): void {
+    this.router.navigate(['transacciones']);
   }
 
 }
