@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 import com.credibanco.assessment.card.dto.PeticionAnularTransaccion;
 import com.credibanco.assessment.card.dto.PeticionCrearTransaccion;
 import com.credibanco.assessment.card.dto.RespuestaAnularTransaccion;
-import com.credibanco.assessment.card.dto.RespuestaConsultarTarjetas;
 import com.credibanco.assessment.card.dto.RespuestaConsultarTransacciones;
 import com.credibanco.assessment.card.dto.RespuestaCrearTransaccion;
-import com.credibanco.assessment.card.dto.TarjetaDto;
 import com.credibanco.assessment.card.dto.TransaccionDto;
 import com.credibanco.assessment.card.model.Tarjeta;
 import com.credibanco.assessment.card.model.Transaccion;
@@ -125,6 +123,7 @@ public class TransaccionService implements ITransaccionService {
 					transaccionDto.setNumeroReferencia(transaccion.getTransaccionReferencia());
 					transaccionDto.setTotalCompra(transaccion.getTransaccionValor());
 					transaccionDto.setDireccionCompra(transaccion.getTransaccionDireccion());
+					transaccionDto.setFechaTransaccion(Utilidades.getInstance().formatearFecha(transaccion.getTransaccionFecha()));
 					listTransaccionDto.add(transaccionDto);
 				});
 				respuestaConsultarTransacciones.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_CERO);

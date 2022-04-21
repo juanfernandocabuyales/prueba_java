@@ -20,4 +20,6 @@ public class TransaccionDto {
 
 	@NotNull(message = "El campo direccion debe ser obligatorio")
 	private String direccionCompra;
+	
+	private String fechaTransaccion;
 }

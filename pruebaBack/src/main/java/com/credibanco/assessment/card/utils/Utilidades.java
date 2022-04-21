@@ -43,6 +43,11 @@ public class Utilidades {
 		return TimeUnit.MILLISECONDS.toMinutes(diferencia);
 	}
 	
+	public String formatearFecha(Date fecha) {
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		return format.format(fecha);
+	}
+	
 	public static void main(String[] args) {
 		/*String resultado = Utilidades.getInstance().enmascararTexto("12345685233456", 6, 4, "*");
 		System.out.println("resultado: " + resultado);*/
