@@ -1,6 +1,8 @@
 package com.credibanco.assessment.card.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +10,11 @@ import org.springframework.stereotype.Service;
 import com.credibanco.assessment.card.dto.PeticionAnularTransaccion;
 import com.credibanco.assessment.card.dto.PeticionCrearTransaccion;
 import com.credibanco.assessment.card.dto.RespuestaAnularTransaccion;
+import com.credibanco.assessment.card.dto.RespuestaConsultarTarjetas;
+import com.credibanco.assessment.card.dto.RespuestaConsultarTransacciones;
 import com.credibanco.assessment.card.dto.RespuestaCrearTransaccion;
+import com.credibanco.assessment.card.dto.TarjetaDto;
+import com.credibanco.assessment.card.dto.TransaccionDto;
 import com.credibanco.assessment.card.model.Tarjeta;
 import com.credibanco.assessment.card.model.Transaccion;
 import com.credibanco.assessment.card.repository.ITarjetaRepository;
@@ -101,6 +107,35 @@ public class TransaccionService implements ITransaccionService {
 			respuestaAnularTransaccion.setMensaje(Constantes.RESPUESTA_FALLO);
 		}
 		return respuestaAnularTransaccion;
+	}
+
+	@Override
+	public RespuestaConsultarTransacciones consultarTransacciones() {
+		RespuestaConsultarTransacciones respuestaConsultarTransacciones = new RespuestaConsultarTransacciones();
+		try {
+			List<Transaccion> listTransacciones = transaccionRepository.findAll();
+			if(null == listTransacciones || listTransacciones.isEmpty()) {
+				respuestaConsultarTransacciones.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_UNO);
+				respuestaConsultarTransacciones.setMensaje(Constantes.SIN_REGISTROS);
+			}else {
+				List<TransaccionDto> listTransaccionDto = new ArrayList<>();
+				listTransacciones.forEach(transaccion -> {
+					TransaccionDto transaccionDto = new TransaccionDto();
+					transaccionDto.setIdTarjeta(transaccion.getTransaccionTarjeta().getTarjetaId());
+					transaccionDto.setNumeroReferencia(transaccion.getTransaccionReferencia());
+					transaccionDto.setTotalCompra(transaccion.getTransaccionValor());
+					transaccionDto.setDireccionCompra(transaccion.getTransaccionDireccion());
+					listTransaccionDto.add(transaccionDto);
+				});
+				respuestaConsultarTransacciones.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_CERO);
+				respuestaConsultarTransacciones.setMensaje(Constantes.RESPUESTA_EXITOSA);
+				respuestaConsultarTransacciones.setTransaccionesList(listTransaccionDto);
+			}
+		}catch(Exception e) {
+			respuestaConsultarTransacciones.setCodigoRespuesta(Constantes.CODIGO_RESPUESTA_UNO);
+			respuestaConsultarTransacciones.setMensaje(Constantes.RESPUESTA_FALLO);
+		}
+		return respuestaConsultarTransacciones;
 	}
 
 }

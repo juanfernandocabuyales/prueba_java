@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PeticionCrearTransaccion {
+public class TransaccionDto {
 
 	@NotNull(message = "El campo IdTarjeta debe ser obligatorio")
 	private Long idTarjeta;

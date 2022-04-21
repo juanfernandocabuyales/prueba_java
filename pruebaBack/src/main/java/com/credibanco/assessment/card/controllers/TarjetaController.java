@@ -1,5 +1,7 @@
 package com.credibanco.assessment.card.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,14 +36,14 @@ public class TarjetaController {
 	
 	@CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @PostMapping(value = "/crearTarjeta")
-    public ResponseEntity<Object> crearTarjeta(@RequestBody PeticionCrearTarjeta peticionCrearTarjeta) {
+    public ResponseEntity<Object> crearTarjeta(@RequestBody @Valid PeticionCrearTarjeta peticionCrearTarjeta) {
 		RespuestaCrearTarjeta respuestaCrearTarjeta = tarjetaService.crearTarjeta(peticionCrearTarjeta);
         return ResponseEntity.ok().body(respuestaCrearTarjeta);
     }
 	
 	@CrossOrigin(origins = "*", methods = {RequestMethod.PUT})
     @PutMapping(value = "/enrolarTarjeta")
-    public ResponseEntity<Object> enrolarTarjeta(@RequestBody PeticionEnrolarTarjeta peticionEnrolarTarjeta) {
+    public ResponseEntity<Object> enrolarTarjeta(@RequestBody @Valid PeticionEnrolarTarjeta peticionEnrolarTarjeta) {
 		RespuestaEnrolarTarjeta respuestaEnrolarTarjeta = tarjetaService.enrolarTarjeta(peticionEnrolarTarjeta);
         return ResponseEntity.ok().body(respuestaEnrolarTarjeta);
     }
@@ -65,7 +67,7 @@ public class TarjetaController {
 	
 	@CrossOrigin(origins = "*", methods = {RequestMethod.DELETE})
     @DeleteMapping(value = "/eliminarTarjeta")
-    public ResponseEntity<Object> eliminarTarjeta(@RequestBody PeticionEliminarTarjeta peticionEliminarTarjeta) {
+    public ResponseEntity<Object> eliminarTarjeta(@RequestBody @Valid PeticionEliminarTarjeta peticionEliminarTarjeta) {
 		RespuestaEliminarTarjeta respuestaEliminarTarjeta = tarjetaService.eliminarTarjeta(peticionEliminarTarjeta);
 		return ResponseEntity.ok().body(respuestaEliminarTarjeta);
     }
